@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红楼梦阅读馆</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "思源宋体", "微软雅黑", sans-serif;
+        }
+        body {
+            background-color: #F5F5DC; /* 米白底色 */
+            color: #5D4037; /* 深棕文字 */
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        nav {
+            background-color: #5D4037;
+            color: #F5F5DC;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: #F5F5DC;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #D7CCC8;
+        }
+
+        /* Banner区 */
+        .banner {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url("https://img.ixintu.com/download/jpg/202005/15/6808359658297492.jpg") center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        .banner h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .banner p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .banner-btn {
+            padding: 0.8rem 2rem;
+            background-color: #5D4037;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .banner-btn:hover {
+            background-color: #795548;
+        }
+
+        /* 内容区通用样式 */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #5D4037;
+            padding-bottom: 0.5rem;
+        }
+
+        /* 名著简介区 */
+        .intro {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .intro-img {
+            flex: 1 1 300px;
+        }
+        .intro-img img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .intro-text {
+            flex: 2 1 500px;
+        }
+        .intro-text p {
+            margin-bottom: 1rem;
+            text-indent: 2em;
+        }
+
+        /* 经典章节区 */
+        .chapters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .chapter-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .chapter-card:hover {
+            transform: translateY(-5px);
+        }
+        .chapter-card h3 {
+            color: #5D4037;
+            margin-bottom: 0.8rem;
+        }
+        .chapter-card p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* 人物赏析区 */
+        .characters {
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+        .character-list {
+            display: flex;
+            gap: 2rem;
+            min-width: fit-content;
+        }
+        .character-card {
+            width: 200px;
+            text-align: center;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .character-card img {
+            width: 120px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 0.8rem;
+        }
+        .character-card h3 {
+            margin-bottom: 0.5rem;
+        }
+        .character-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: #5D4037;
+            color: #F5F5DC;
+            padding: 2rem 5%;
+            margin-top: 3rem;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .footer-links a {
+            color: #F5F5DC;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .footer-copyright {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* 响应式适配（移动端） */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .banner h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">红楼梦阅读馆</div>
+            <div class="nav-links">
+                <a href="#intro">名著简介</a>
+                <a href="#chapters">经典章节</a>
+                <a href="#characters">人物赏析</a>
+                <a href="#comments">读者感悟</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner区 -->
+    <section class="banner">
+        <h1>满纸荒唐言，一把辛酸泪</h1>
+        <p>探索《红楼梦》的细腻与深邃，品味古典文学的巅峰之作</p>
+        <button class="banner-btn" onclick="scrollToSection('intro')">开始探索</button>
+    </section>
+
+    <!-- 名著简介区 -->
+    <section class="container" id="intro">
+        <h2 class="section-title">名著简介</h2>
+        <div class="intro">
+            <div class="intro-img">
+                <img src="https://img1.baidu.com/it/u=383432132,3208008044&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=707" alt="红楼梦封面">
+            </div>
+            <div class="intro-text">
+                <p>《红楼梦》是中国古典四大名著之首，清代作家曹雪芹创作的章回体长篇小说，又名《石头记》《金玉缘》。小说以贾、史、王、薛四大家族的兴衰为背景，以书中几名主要角色的爱情婚姻悲剧为主线，描绘了封建社会的繁华与衰落，是一部具有深刻思想内涵和艺术价值的文学巨著。</p>
+                <p>书中以贾宝玉、林黛玉、薛宝钗的爱情纠葛为核心，同时塑造了金陵十二钗等数百位鲜明的人物形象，反映了当时社会的伦理、文化、生活等多方面内容，被誉为“中国封建社会的百科全书”。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 经典章节区 -->
+    <section class="container" id="chapters">
+        <h2 class="section-title">经典章节</h2>
+        <div class="chapters">
+            <div class="chapter-card">
+                <h3>黛玉葬花</h3>
+                <p>出自第二十七回《滴翠亭杨妃戏彩蝶 埋香冢飞燕泣残红》，黛玉感怀落花命运，葬花并作《葬花吟》，道尽自身的凄苦与惆怅。</p>
+            </div>
+            <div class="chapter-card">
+                <h3>刘姥姥进大观园</h3>
+                <p>出自第四十回《史太君两宴大观园 金鸳鸯三宣牙牌令》，刘姥姥的乡村视角反衬出贾府的奢华，充满喜剧色彩又暗含悲凉。</p>
+            </div>
+            <div class="chapter-card">
+                <h3>宝玉挨打</h3>
+                <p>出自第三十三回《手足耽耽小动唇舌 不肖种种大承笞挞》，宝玉因叛逆行为遭贾政毒打，展现了封建家长与晚辈的矛盾冲突。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 人物赏析区 -->
+    <section class="container" id="characters">
+        <h2 class="section-title">人物赏析</h2>
+        <div class="characters">
+            <div class="character-list">
+                <div class="character-card">
+                    <img src="https://img2.baidu.com/it/u=3961322072,2114120440&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750" alt="林黛玉">
+                    <h3>林黛玉</h3>
+                    <p>敏感聪慧，才情卓绝，寄人篱下的身世让她多愁善感，是封建礼教的叛逆者之一。</p>
+                </div>
+                <div class="character-card">
+                    <img src="https://img0.baidu.com/it/u=123456789,123456789&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750" alt="贾宝玉">
+                    <h3>贾宝玉</h3>
+                    <p>叛逆不羁，厌恶功名利禄，追求自由平等的爱情，是封建家族的“不肖子孙”。</p>
+                </div>
+                <div class="character-card">
+                    <img src="https://img1.baidu.com/it/u=4287654321,123456789&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750" alt="薛宝钗">
+                    <h3>薛宝钗</h3>
+                    <p>端庄稳重，八面玲珑，符合封建礼教的“完美女性”，却也难逃悲剧命运。</p>
+                </div>
+                <div class="character-card">
+                    <img src="https://img2.baidu.com/it/u=987654321,123456789&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750" alt="王熙凤">
+                    <h3>王熙凤</h3>
+                    <p>精明强干，泼辣狠毒，掌管家政的同时也加速了贾府的衰落，是复杂的悲剧人物。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div>
+                <div class="footer-logo">红楼梦阅读馆</div>
+                <p>探索古典文学的魅力</p>
+            </div>
+            <div class="footer-links">
+                <a href="#intro">名著简介</a>
+                <a href="#chapters">经典章节</a>
+                <a href="#characters">人物赏析</a>
+            </div>
+        </div>
+        <div class="footer-copyright">©2025 红楼梦阅读馆 </div>
+    </footer>
+
+    <!-- 简单JS交互（导航跳转） -->
+    <script>
+        // 点击Banner按钮跳转到简介区
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 导航栏链接点击平滑跳转
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
