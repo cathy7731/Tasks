@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>招新网站</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", sans-serif;
+        }
+        body {
+            background-color: #f9f7f5;
+            position: relative;
+        }
+
+        /* 导航栏（匹配图片样式） */
+        .nav-bar {
+            background-color: #ffd500;
+            padding: 12px 0;
+        }
+        .nav-bar > div:first-child {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 50px;
+            padding-left: 28px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        /* 中央Logo区域 */
+        .logo-section {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        .logo {
+            width: 180px;
+            margin-bottom: 20px;
+        }
+        .illustration {
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        /* 介绍卡片（左右交替） */
+        .card-section {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .card-img {
+            width: 45%;
+            border-radius: 6px;
+        }
+        .card-text {
+            width: 55%;
+        }
+        .card-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .card-content {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* About Us区域 */
+        .about-title {
+            text-align: center;
+            font-size: 24px;
+            margin: 40px 0 30px;
+            color: #333;
+        }
+        .card-container {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .about-card {
+            width: 200px;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #eee;
+        }
+        .card-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+        .card-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Contact Us区域 */
+        .contact-container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #eee;
+        }
+        .contact-title {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        .contact-list {
+            list-style: none;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .contact-note {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .contact-btn {
+            padding: 10px 25px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 问答区域 */
+        .qa-section {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto 60px;
+             background-image: url("images/background_QA.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 12px;
+            padding: 50px 20px;
+        }
+        .qa-item {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .qa-question {
+            width: 100%;
+            padding: 15px 20px;
+            text-align: left;
+            border: none;
+            background-color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .qa-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: #f8f8f8;
+        }
+        .qa-answer p {
+            padding: 15px 0;
+            color: #666;
+        }
+        .qa-item.active .qa-answer {
+            max-height: 200px;
+        }
+
+        /* 二维码区域 */
+        .qrcode-section {
+            padding: 20px;
+            text-align: center;
+        }
+        .qrcode-img {
+            width: 150px;
+        }
+
+        /* 装饰元素 */
+        .decor {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+        }
+        .decor1 {
+            top: 20px;
+            left: 20px;
+            content: "🐸";
+            font-size: 20px;
+        }
+        .decor2 {
+            bottom: 20px;
+            left: 80px;
+            content: "🍃";
+            font-size: 20px;
+        }
+        .footer-deco {
+            position: fixed;
+            bottom: 0;
+            right: 20px;
+            font-size: 60px;
+            opacity: 0.8;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 装饰元素 -->
+    <div class="decor decor1"></div>
+    <div class="decor decor2"></div>
+    <div class="footer-deco">🦋</div>
+
+    <!-- 导航栏 -->
+    <nav class="nav-bar">
+        <div>加入我们</div>
+        <div class="nav">
+            <a href="#introduction">Introduction</a>
+            <a href="#about">About Us</a>
+            <a href="#newthread">NewThread</a>
+            <a href="#contact">Contact Us</a>
+            <a href="#qa">Q&A</a>
+        </div>
+    </nav>
+
+    <!-- 中央Logo区域 -->
+    <section class="logo-section">
+        <img src="images/background_homepage.png" alt="logo" class="logo-img">
+        <p class="logo-desc"></p>
+    </section>
+
+    <!-- 介绍卡片区域 -->
+    <section class="card-section" id="introduction">
+        <!-- 开发程序猿 -->
+        <div class="card">
+            <img src="images/Geek_Programmer.png" alt="开发程序猿" class="card-img">
+            <div class="card-text">
+                <h3 class="card-title">开发程序猿</h3>
+                <p class="card-content">"Stay Hungry, Stay Foolish"<br>
+                前端：前端开发是创建Web/app视觉界面呈现给用户的过程通过HTML、CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，实现互联网产品的用户界面交互。<br>
+                后端：通常也称服务器端开发。不对用户显示,负责处理前端的请求，进行逻辑处理和数据交互。 客户端: 移动应用开发是为了小型、无线计算设备编写软件的流程和程序的集合，例如智能手机或平板电脑。</p>
+            </div>
+        </div>
+
+        <!-- 产品经理 -->
+        <div class="card">
+            <img src="images/Geek_PM.png" alt="产品经理" class="card-img">
+            <div class="card-text">
+                <h3 class="card-title">产品经理</h3>
+                <p class="card-content">"好的软件的特征是，明明没用过，但总觉得用过似的。"<br>
+                PM是针对某一项或是某一类的产品进行规划和管理的人员。PM需要拥有缜密的产品逻辑思维，研究用户心理，负责产品的整个生命周期。 PM参与产品的UI和交互设计，为设计和开发确定产品原型，能够将产品变得有个性,操作变得舒适简单、自由。 PM需要一定的文档能力和沟通能力，能够在团队合作的过程中跟各个角色进行有效沟通。</p>
+            </div>
+        </div>
+
+        <!-- 游戏开发 -->
+        <div class="card">
+            <img src="images/Geek_Game.png" alt="游戏开发" class="card-img">
+            <div class="card-text">
+                <h3 class="card-title">游戏开发</h3>
+                <p class="card-content">"TECH OTAKUS SAVE THE WORLD"<br>
+                对游戏开发的热爱和追求，使我们相聚于此。涉及计算机图形学的学习，我们使用物理模拟引擎Unity开发我们所追求的世界，一个故事，一个角色，在我们的世界里改变现实，创造新的可能，我们参与，我们改变，我们创造...</p>
+            </div>
+        </div>
+
+        <!-- 安全 -->
+        <div class="card">
+            <img src="images/Geek_security.png" alt="安全" class="card-img">
+            <div class="card-text">
+                <h3 class="card-title">安全</h3>
+                <p class="card-content">"路漫漫其修远兮，非大毅力者不能"<br>
+                我们主要学习Web安全和二进制安全。在Web安全中我们将学习和实践Web漏洞挖掘技术，也将探索和讨论Web安全实践的方法。在二进制安全中我们专注于分析和防御与计算机程序、系统相关的威胁，同时实践漏洞分析和修补。耐心和钻研缺一不可。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us区域 -->
+    <h2 class="about-title" id="about">About Us</h2>
+    <div class="card-container">
+        <div class="about-card">
+            <div class="card-icon">📢</div>
+            <h3 class="card-title">Speech</h3>
+            <p class="card-desc">每周我们会举行一次技术例会，用来汇报我们的学习内容，供成员之间交流学习。</p>
+        </div>
+        <div class="about-card">
+            <div class="card-icon">🎨</div>
+            <h3 class="card-title">Diversity</h3>
+            <p class="card-desc">多元化是我们的特色，在这里，你可以拥有多种方向选择，前后端、安全、AI、产品、设计、游戏等。</p>
+        </div>
+        <div class="about-card">
+            <div class="card-icon">⏱️</div>
+            <h3 class="card-title">30+ H</h3>
+            <p class="card-desc">耐心、毅力是我们必备的品质，每周我们会至少花30小时在实验室中，以保证技术的精进。</p>
+        </div>
+    </div>
+
+    <!-- Contact Us区域 -->
+    <div class="contact-container" id="contact">
+        <h2 class="contact-title">Contact Us</h2>
+        <ul class="contact-list">
+            <li>热爱计算机，具有geek精神，喜欢DIY，动手能力较强</li>
+            <li>有编程/算法/硬件基础为佳(有作品可附上)</li>
+            <li>有足够的空余时间，热爱思考，对事物有自己的见解</li>
+        </ul>
+        <p class="contact-note">ps:非新思维招新只有通过发送邮件自我介绍后，收到邮件回执后才会被允许进群。在读学生，都可邮件到newthread_geek@outlook.com报名加入(信件中需注个人基本信息以及意向方向，此招新活动为长期招新)</p>
+        <div class="btn-group">
+            <button class="contact-btn" onclick="alert('请先发送邮件获取QQ群号')">QQ-Group</button>
+            <button class="contact-btn" onclick="copyEmail()">E-mail</button>
+            <button class="contact-btn" onclick="window.open('https://github.com')">GitHub</button>
+        </div>
+    </div>
+
+    <!-- 问答区域 -->
+    <section class="qa-section" id="qa">
+        <div class="qa-item">
+            <button class="qa-question">问题1：什么是Geek(极客)？Geek精神又是什么？</button>
+            <div class="qa-answer">
+                <p>回答内容：拥有好奇之心，改变之力，爱钻研，能折腾。</p>
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-question">问题2：招新是安排在什么时间？</button>
+            <div class="qa-answer">
+                <p>回答内容：按照惯例，正式招新时间是在9月下旬~10月上旬，不过今年会有一些改动，笔试地 点一般在9号教学楼。 如果想要了解我们，可以加入我们的QQ群，招新具体的安排/变动会在招新群通知。</p>
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-question">问题3：我们有考核吗？考核流程是怎样的呀？</button>
+            <div class="qa-answer">
+                <p>回答内容：嗯...我们一共有一轮笔试和两轮面试。权衡技术、经验和学习能力，第一轮是一些视野性的题目，淘汰率并不高。第二轮单独面试， 根据你的笔试提出技术相关的问题、兴趣爱好、个人看法。最后一轮群面，首先问及时间分 配上的问题，其次也会向你提出各种奇怪的问题。这一轮中许多题目其实并不难，也无标准答案，重在考察同学们在压力下的逻辑思维。全部通过成为预备成员啦。
+</p>
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-question">问题4：考核是怎样的形式？</button>
+            <div class="qa-answer">
+                <p>回答内容：在考核期间每人会拥有一位'长者'带你入门，学习技术与知识，交流经验与想法。完成每周的新人任务后再进行一次考核筛选 后就可以成为Geek组正式成员啦！在考核期必须满足每周30个小时在实验室哦,所以考核期也不可以懈怠哦！
+</p>
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-question">问题5：进入Geek组之后都有什么福利呢？</button>
+            <div class="qa-answer">
+                <p>回答内容：一对一的新人指引，每一个成员都有会一个mentor, 带你初入门槛，与你一同成长，组内管理较宽松,在尊重其他人的前提下可以尽情发挥自己的个性。 打破平淡，与同样疯狂的人把疯狂的idea实现，磨砺耐性、培养思维、成就梦想。Lab设备/网络资源充足，闲暇之余也有组织活动。更有许多的故事等你来听~</p>
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-question">问题6：进入团队会影响我的日常学习吗？</button>
+            <div class="qa-answer">
+                <p>回答内容：你要知道大学是一个可以自由安排自己学习生活的地方。如果你想在上课之余充实自己、激励自己，最好的方法就是和比自己更优秀的人在一起。团队不缺优秀的 人，而我们也期待同样优秀的你，让我们一起前进！小组里也有不少保研, 考研的前辈们, 大部分都能找到一个平衡点, 而且团队的经历对你日后读研, 工作都大有裨益。</p>
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-question">问题7：老师以及学长学姐们的期望是什么？</button>
+            <div class="qa-answer">
+                <p>回答内容：我们希望你有很强的自学能力，同时关注新事物、新技术，喜欢挑战，逻辑性强，善于和各种文化的人合作.“每个人都可以做自己想做的事情，每个人的方向不一样。 如果你想做产品或有不错的 idea，那么就可以找志同道合的人一起合作。”</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 二维码区域 -->
+    <section class="qrcode-section">
+        <img src="images/qrcode_1699620268564.jpg" alt="2023招新二维码" class="qrcode-img">
+        <p>2023招新二维码</p>
+    </section>
+
+    <script>
+        // 导航栏平滑滚动
+        document.querySelectorAll('.nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 复制邮箱功能
+        function copyEmail() {
+            const email = "newthread_geek@outlook.com";
+            navigator.clipboard.writeText(email).then(() => {
+                alert(`邮箱已复制：${email}`);
+            });
+        }
+
+        // 问答下拉交互
+        document.querySelectorAll('.qa-question').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
